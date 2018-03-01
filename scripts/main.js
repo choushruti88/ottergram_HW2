@@ -64,7 +64,9 @@ function imageSlide() {
       currentArrayIndex = i;
     }
   }
-  if (document.activeElement.id == "previous-button") {
+  return [currentArrayIndex, thumbnailsArray];
+
+  /*if (document.activeElement.id == "previous-button") {
     if (currentArrayIndex > 0) {
       var previousImage = thumbnailsArray[currentArrayIndex - 1].getAttribute("data-image-url");
       var previousImageTitle = thumbnailsArray[currentArrayIndex - 1].getAttribute("data-image-title");
@@ -76,5 +78,27 @@ function imageSlide() {
       var nextImageTitle = thumbnailsArray[currentArrayIndex + 1].getAttribute("data-image-title");
       setDetails(nextImage, nextImageTitle);
     }
-  }
+  }*/
 }
+
+previous_button.addEventListener("click", function(event) {
+  var imageThumbnaildata = imageSlide();
+  var imageIndex=  imageThumbnaildata[0];
+  var thumbArray = imageThumbnaildata[1];
+  if (imageIndex > 0) {
+    var previousImage = thumbArray[imageIndex - 1].getAttribute("data-image-url");
+    var previousImageTitle = thumbArray[imageIndex - 1].getAttribute("data-image-title");
+    setDetails(previousImage, previousImageTitle);
+  }
+});
+
+next_button.addEventListener("click", function(event){
+  var imageThumbnaildata = imageSlide();
+  var imageIndex=  imageThumbnaildata[0];
+  var thumbArray = imageThumbnaildata[1];
+  if (imageIndex < thumbArray.length - 1) {
+    var nextImage = thumbArray[imageIndex + 1].getAttribute("data-image-url");
+    var nextImageTitle = thumbArray[imageIndex + 1].getAttribute("data-image-title");
+    setDetails(nextImage, nextImageTitle);
+  }
+});
